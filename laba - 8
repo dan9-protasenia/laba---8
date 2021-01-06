@@ -1,34 +1,82 @@
-#define _CRT_SECURE_NO_WARNINGS                        // для корректной работы scanf()
-#include <stdio.h>
+#include<stdio.h>
+#include<malloc.h>
+#include<locale.h>
+#include<string.h>
+#include<stdlib.h>
 
-void bubbleSort(int* num, int size)
-{
-   
-    for (int i = 0; i < size - 1; i++)
-    {
-        for (int j = (size - 1); j > i; j--) 
-        {
-            if (num[j - 1] < num[j]) 
-            {
-                int temp = num[j - 1]; 
-                num[j - 1] = num[j];
-                num[j] = temp;
-            }
-        }
-    }
-}
 int main()
 {
-    int a[10];                                       // Объявляем массив из 10 элементов
-    // Вводим значения элементов массива
-    for (int i = 0; i < 10; i++)
-    {
-        printf("a[%d] = ", i);
-        scanf("%d", &a[i]);
-    }
-    bubbleSort(a, 10);  
-    for (int i = 0; i < 10; i++)
-        printf("%d ", a[i]);
-    getchar(); getchar();
-    return 0;
+setlocale(LC_ALL, "russian");
+int n, m, a = 0, b = 0, c = 0, d = 0,e=0,f=0;
+char** ms;
+printf("Введите кол-во строк\n");
+scanf("%d", &n);
+n++;
+ms = (char**)calloc(n, sizeof(char*));
+printf("Введите кол-во символов в строке\n");
+scanf("%d", &m);
+for (int i = 0; i < n; i++)
+ms[i] = (char*)calloc((m + 1), sizeof(char)); 
+printf("Введите текст (длина строки не больше %d , строк не больше %d):\n", m, n - 1);
+for (int i = 0; i < n; i++) 
+{
+gets(ms[i]);
+}
+system("CLS");
+for (int i = 0; i < n; i++)
+{
+for (int j = 0; j < m; j++)
+{
+if (ms[i][j] == '*' || ms[i][j] == '+' || ms[i][j] == '-')
+{
+a = 1;
+}
+else if (a == 1)
+{
+a = 0;
+b += 1;
+}
+}
+}
+for (int i = 0; i < n; i++) 
+{
+for (int j = 0; j < m; j++)
+{
+if (ms[i][j] >= 'a' && ms[i][j] <= 'z')
+{
+c = 1;
+}
+else if (c == 1)
+{
+c = 0;
+d += 1;
+}
+}
+}
+for (int i = 0; i < n; i++) 
+{
+for (int j = 0; j < m; j++)
+{
+if (ms[i][j] >= '0' && ms[i][j] <= '9')
+{
+e = 1;
+}
+else if (e == 1)
+{
+e = 0;
+f += 1;
+}
+}
+}
+printf("Ваш текст:");
+for (int i = 0; i < n; i++)
+{
+puts(ms[i]);
+}
+printf("\nКол-во групп знаков: %d Кол-во групп букв: %d Кол-во групп чисел: %d",b,d,f);
+if (b > d)
+printf("\nГрупп знаков больше, чем групп букв"); 
+else
+printf("\nГрупп букв больше, чем групп знаков");
+return 0;
 }
